@@ -1,11 +1,23 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+
     mainView: {
-        height: 250,
+        height: 300,
         justifyContent:"center",
         alignItems: "center",
         backgroundColor: "#00000080",
+    },
+
+    changeButton: {
+        marginBottom: 20, 
+        borderRadius: 30,
+        backgroundColor: "#fff",
+        padding: 7.5,
+        paddingHorizontal: 25,
     },
 
     whiteText: {
@@ -50,14 +62,17 @@ export default StyleSheet.create({
 
     holidayContainer: {
         paddingTop: 30,
-        paddingBottom: 35,
+        paddingBottom: 25,
         paddingHorizontal: 20,
         backgroundColor: "#fff",
         marginVertical: 10,
         marginHorizontal: 20,
         borderRadius: 10,
         elevation: 5,
-        shadowColor: '#000',
+        shadowColor: '#171717',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
     },
 
     holidayTitle: {
@@ -88,7 +103,15 @@ export default StyleSheet.create({
     },
 
     holidayDescription: {
-        marginRight: 5,
-        fontSize: 13
+        marginRight: 10,
+        fontSize: 13,
+        textAlign: "justify",
+    },
+
+    infoBtn: {
+        fontSize: 8,
+        color: '#b8b8b8',
+        marginTop: 25,
+        letterSpacing: 2,
     }
 })
