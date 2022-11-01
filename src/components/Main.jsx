@@ -13,8 +13,6 @@ const Main = () => {
       setData(res.data.response.holidays)
     })
   }, [year])
-  
-
 
   return (
     <View style={styles.container}>

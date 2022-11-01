@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { ScrollView, View, Text, StyleSheet, ImageBackground } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
 import Years from '../scripts/years'
@@ -24,6 +24,14 @@ const RenderHoliday = (holiday, index) => {
 }
 
 const France = ({data, setYear}) => {
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 500);
+    }, [loading])
+    
 
     const year = Years()
     const image = {uri: "https://images.unsplash.com/photo-1549416878-ceda3534842b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"}
@@ -34,12 +42,12 @@ const France = ({data, setYear}) => {
                 <View style={styles.mainView}>
                     <Text style={styles.whiteText}>FRANCE</Text>
                     <SelectDropdown data={year} 
-                        onSelect={selectedItem => {setYear(selectedItem)}} 
+                        onSelect={selectedItem => {setYear(selectedItem), setLoading(true)}}
                         defaultButtonText={'Select year'} 
                         buttonStyle={styles.dropdown2BtnStyle}
                         buttonTextStyle={styles.dropdown2BtnTxtStyle}
                         renderDropdownIcon={isOpened => {
-                        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#FFF'} size={18} />;
+                            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#FFF'} size={18} />;
                         }}
                         dropdownIconPosition={'right'}
                         dropdownStyle={styles.dropdown2DropdownStyle}
@@ -47,8 +55,16 @@ const France = ({data, setYear}) => {
                         rowTextStyle={styles.dropdown2RowTxtStyle}></SelectDropdown>
                 </View>
             </ImageBackground>
+            
             <ScrollView style={styles.scrollableContainer}>
-                {data.map((holiday, index) => RenderHoliday(holiday, index))}
+                {loading 
+                    ?
+                    <View>
+                        <Text>Loading...</Text>
+                    </View>
+                    :
+                    data.map((holiday, index) => RenderHoliday(holiday, index))
+                }
             </ScrollView>
         </View>
     )
