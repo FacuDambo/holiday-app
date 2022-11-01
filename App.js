@@ -1,13 +1,21 @@
 import { StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
-import Main from './src/components/Main';
+import France from './src/components/France';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Spain from './src/components/Spain';
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+  
   return (
-    <View style={styles.container}>
-      <Main></Main>
-    </View>
-  );
+    <NavigationContainer style={styles.container}>
+      <Stack.Navigator style={styles.container}>
+        <Stack.Screen name="France" component={France} />
+        <Stack.Screen name="Spain" component={Spain} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 const styles = StyleSheet.create({

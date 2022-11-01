@@ -5,12 +5,12 @@ import Years from '../scripts/years'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios'
 
-const France = ({ navigation }) => {
+const Spain = ({ navigation }) => {
     const [year, setYear] = useState(2022)
     const [data, setData] = useState([])
 
     useEffect(() => {
-        axios.get(`https://calendarific.com/api/v2/holidays?&api_key=524c0553be46ac13d593e254307d0db8557ec91b&country=FR&year=${year}`)
+        axios.get(`https://calendarific.com/api/v2/holidays?&api_key=524c0553be46ac13d593e254307d0db8557ec91b&country=ES&year=${year}`)
         .then(res => {
         setData(res.data.response.holidays)
         })
@@ -26,16 +26,16 @@ const France = ({ navigation }) => {
     
 
     const years = Years()
-    const image = {uri: "https://images.unsplash.com/photo-1549416878-ceda3534842b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"}
+    const image = {uri: "https://images.unsplash.com/photo-1519749590405-ea0c5456862c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"}
 
     return (
         <View style={{flex: 1}}>
             <ImageBackground  source={image} resizeMode="cover">
                 <View style={styles.mainView}>
-                    <Text style={styles.whiteText}>FRANCE</Text>
+                    <Text style={styles.whiteText}>SPAIN</Text>
                     <Button
-                        title="Go to Spain"
-                        onPress={() => navigation.navigate('Spain')}
+                        title="Go to France"
+                        onPress={() => navigation.navigate('France')}
                     />
                     <SelectDropdown data={years} 
                         onSelect={selectedItem => {setYear(selectedItem), setLoading(true)}}
@@ -48,8 +48,7 @@ const France = ({ navigation }) => {
                         dropdownIconPosition={'right'}
                         dropdownStyle={styles.dropdown2DropdownStyle}
                         rowStyle={styles.dropdown2RowStyle}
-                        rowTextStyle={styles.dropdown2RowTxtStyle}>
-                    </SelectDropdown>
+                        rowTextStyle={styles.dropdown2RowTxtStyle}></SelectDropdown>
                 </View>
             </ImageBackground>
             
@@ -73,7 +72,7 @@ const RenderHoliday = (holiday, index) => {
     let month = dateData.month < 10 ? "0" + dateData.month : dateData.month 
     let date = day + '-' + month + '-' + dateData.year
 
-    let image = { uri: "https://preview.redd.it/3ougeqxn4b981.png?width=900&format=png&auto=webp&s=64adfd255be4eb20b28facac7e95861be03535d1" };
+    let image = { uri: "https://stuffedeyes.files.wordpress.com/2018/06/spain-2906824_960_720.png?w=748" };
 
     return (
         <View key={index} style={styles.holidayContainer}>
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 10,
         borderTopRightRadius: 10,
         flex: 1,
-        overflow: "hidden"
+        overflow: "hidden",
     },
 
     holidayDateText: {
@@ -179,4 +178,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default France
+export default Spain
