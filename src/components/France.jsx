@@ -1,30 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { ScrollView, View, Text, StatusBar, ImageBackground, TouchableHighlight, Linking } from 'react-native'
 import SelectDropdown from 'react-native-select-dropdown'
 import Years from '../scripts/years'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios'
 import styles from '../scripts/styles';
+import AnimatedLoader from './AnimatedLoader';
 
 const France = ({ navigation }) => {
     const [year, setYear] = useState(2022)
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         axios.get(`https://calendarific.com/api/v2/holidays?&api_key=524c0553be46ac13d593e254307d0db8557ec91b&country=FR&year=${year}`)
         .then(res => {
         setData(res.data.response.holidays)
         })
+        .catch(err => console.log(err))
     }, [year])
-
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 500);
+        }, 1000);
     }, [loading])
-    
 
     const years = Years()
     const image = {uri: "https://images.unsplash.com/photo-1549416878-ceda3534842b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"}
@@ -57,9 +57,7 @@ const France = ({ navigation }) => {
             <ScrollView style={styles.scrollableContainer}>
                 {loading 
                     ?
-                    <View>
-                        <Text>Loading...</Text>
-                    </View>
+                    <AnimatedLoader />
                     :
                     data.map((holiday, index) => RenderHoliday(holiday, index))
                 }
@@ -89,6 +87,7 @@ const RenderHoliday = (holiday, index) => {
                     <Text style={styles.holidayDateText}>{date}</Text>
                 </ImageBackground>
                 <Text style={styles.holidayDescription}>{holiday.description}</Text>
+                <Text style={styles.infoBtn}>Touch for more info!</Text>
             </View>
         </TouchableHighlight>
     )

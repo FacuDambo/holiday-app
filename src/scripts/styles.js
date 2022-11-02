@@ -12,6 +12,16 @@ export default StyleSheet.create({
         backgroundColor: "#00000080",
     },
 
+    loaderView: {
+        height: 300,
+        justifyContent:"center",
+        alignItems: "center",
+    },
+
+    loaderTitle: {
+        fontSize: 60,
+    },
+
     changeButton: {
         marginBottom: 20, 
         borderRadius: 30,

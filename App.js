@@ -5,7 +5,7 @@ import Spain from './src/components/Spain';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>

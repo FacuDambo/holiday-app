@@ -5,26 +5,26 @@ import Years from '../scripts/years'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios'
 import styles from '../scripts/styles';
+import AnimatedLoader from './AnimatedLoader';
 
 const Spain = ({ navigation }) => {
     const [year, setYear] = useState(2022)
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         axios.get(`https://calendarific.com/api/v2/holidays?&api_key=524c0553be46ac13d593e254307d0db8557ec91b&country=ES&year=${year}`)
         .then(res => {
         setData(res.data.response.holidays)
         })
+        .catch(err => console.log(err))
     }, [year])
-
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 500);
+        }, 1000);
     }, [loading])
-    
 
     const years = Years()
     const image = {uri: "https://images.unsplash.com/photo-1519749590405-ea0c5456862c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80"}
@@ -56,9 +56,7 @@ const Spain = ({ navigation }) => {
             <ScrollView style={styles.scrollableContainer}>
                 {loading 
                     ?
-                    <View>
-                        <Text>Loading...</Text>
-                    </View>
+                    <AnimatedLoader />
                     :
                     data.map((holiday, index) => RenderHoliday(holiday, index))
                 }
